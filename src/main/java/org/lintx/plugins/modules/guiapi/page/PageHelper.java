@@ -33,7 +33,7 @@ public class PageHelper {
             return 0;
         }
         else {
-            int page_count = config.guiRow*colCount;
+            int page_count = (config.guiRow-1)*colCount;
             return (page-1)*page_count;
         }
     }
@@ -43,7 +43,7 @@ public class PageHelper {
             return max;
         }
         else {
-            int page_count = config.guiRow*colCount;
+            int page_count = (config.guiRow-1)*colCount;
             return Math.min((page)*page_count,max);
         }
     }
@@ -66,12 +66,13 @@ public class PageHelper {
         }
         else {
             page.add(getPageItem(1,current_page));
-            int min = Math.max(current_page-3,2);
+            page.add(null);
+            int min = Math.max(current_page-2,2);
             int max = Math.min(min+6,total_page-1);
-            if (max-min!=6){
-                min = max - 6;
+            if (max-min!=4){
+                min = max - 4;
             }
-            for (int i=0;i<7;i++){
+            for (int i=0;i<5;i++){
                 page.add(getPageItem(min+i,current_page));
             }
             page.add(getPageItem(total_page,current_page));
