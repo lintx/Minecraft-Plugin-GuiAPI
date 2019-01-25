@@ -1,0 +1,7 @@
+name: GuiAPI
+main: org.lintx.plugins.modules.guiapi.GuiAPI
+version: 1.0.0
+api-version: 1.13
+commands:
+  gui:
+    usage: /<command>
