@@ -66,13 +66,12 @@ public class PageHelper {
         }
         else {
             page.add(getPageItem(1,current_page));
-            page.add(null);
-            int min = Math.max(current_page-2,2);
+            int min = Math.max(current_page-3,2);
             int max = Math.min(min+6,total_page-1);
-            if (max-min!=4){
-                min = max - 4;
+            if (max-min!=6){
+                min = max - 6;
             }
-            for (int i=0;i<5;i++){
+            for (int i=0;i<7;i++){
                 page.add(getPageItem(min+i,current_page));
             }
             page.add(getPageItem(total_page,current_page));

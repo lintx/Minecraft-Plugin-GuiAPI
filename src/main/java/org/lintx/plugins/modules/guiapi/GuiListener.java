@@ -36,8 +36,8 @@ public class GuiListener implements Listener {
         }
         else if (type==InventoryType.CHEST || type==InventoryType.DROPPER || type==InventoryType.HOPPER){
             HumanEntity player = event.getWhoClicked();
-            if (GuiPlayerHelper.isHandlerChestGui(player)){
-                ChestGui gui = GuiPlayerHelper.getChestGui(player);
+            if (GuiPlayerHelper.isHandlerChestGui2(player)){
+                ChestGui gui = GuiPlayerHelper.getChestGui2(player);
                 if (gui.isCanMoveItem()){
                     return;
                 }
@@ -52,12 +52,17 @@ public class GuiListener implements Listener {
                     if (item!=null){
                         gui.getCallback().onClick(gui,item,event.getClick());
                     }
-                    return;
                 }
             }
-            if (event.getInventory().getLocation()==null){
-                event.setCancelled(true);
-            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryOpen(InventoryOpenEvent event){
+        HumanEntity player = event.getPlayer();
+        if (GuiPlayerHelper.isHandlerChestGui(player)){
+            GuiPlayerHelper.addChestGuiHandler2(player,GuiPlayerHelper.getChestGui(player));
+            GuiPlayerHelper.removeChestGuiHandler(player);
         }
     }
 
@@ -69,13 +74,13 @@ public class GuiListener implements Listener {
             GuiPlayerHelper.getRenameCallback(player).onClose();
             GuiPlayerHelper.removeRenameHandler(player);
         }
-        if (GuiPlayerHelper.isHandlerChestGui(player)){
-            ChestGui gui = GuiPlayerHelper.getChestGui(player);
+        if (GuiPlayerHelper.isHandlerChestGui2(player)){
+            ChestGui gui = GuiPlayerHelper.getChestGui2(player);
             if (gui.getInventory().equals(event.getInventory())){
-                GuiPlayerHelper.getChestGui(player).getCallback().onClose(GuiPlayerHelper.getChestGui(player));
+                GuiPlayerHelper.getChestGui2(player).getCallback().onClose(GuiPlayerHelper.getChestGui2(player));
                 event.getInventory().clear();
             }
-            GuiPlayerHelper.removeChestGuiHandler(player);
+            GuiPlayerHelper.removeChestGuiHandler2(player);
         }
     }
 
@@ -87,6 +92,9 @@ public class GuiListener implements Listener {
         }
         if (GuiPlayerHelper.isHandlerChestGui(player)){
             GuiPlayerHelper.removeChestGuiHandler(player);
+        }
+        if (GuiPlayerHelper.isHandlerChestGui2(player)){
+            GuiPlayerHelper.removeChestGuiHandler2(player);
         }
     }
 
